@@ -44,21 +44,21 @@
 ```mermaid
 flowchart TD
     subgraph "ECS Cluster"
-        Task[Pulumi Execution Task]
+        Task["Pulumi Execution Task"]
     end
 
     subgraph "AWS Cloud"
-        EC2[Target EC2 Instance]
-        S3[S3 Bucket (Pulumi State)]
-        SSM[SSM Parameter Store (Config)]
+        EC2["Target EC2 Instance"]
+        S3["S3 Bucket (Pulumi State)"]
+        SSM["SSM Parameter Store (Config)"]
     end
 
-    Docker[Docker Image] --> Task
+    Docker["Docker Image"] --> Task
     Task -- "1. Load Config" --> SSM
     Task -- "2. Check State" --> S3
     Task -- "3. pulumi up" --> EC2
 
-    note[Docker Image Contents:\n- Node.js / Pulumi CLI\n- instance-provisioning Code]
+    note["Docker Image Contents:<br/>- Node.js / Pulumi CLI<br/>- instance-provisioning Code"]
     Docker -.-> note
 ```
 
